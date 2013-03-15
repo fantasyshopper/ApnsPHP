@@ -33,11 +33,13 @@
 function ApnsPHP_Autoload($sClassName)
 {
 	if (empty($sClassName)) {
+		return false;
 		throw new Exception('Class name is empty');
 	}
 
 	$sPath = dirname(dirname(__FILE__));
 	if (empty($sPath)) {
+		return false;
 		throw new Exception('Current path is empty');
 	}
 
@@ -46,12 +48,14 @@ function ApnsPHP_Autoload($sClassName)
 		str_replace('_', DIRECTORY_SEPARATOR, $sClassName)
 	);
 	if (!is_file($sFile) || !is_readable($sFile)) {
+		return false;
 		throw new Exception("Class file '{$sFile}' does not exists");
 	}
 
 	require_once $sFile;
 
 	if (!class_exists($sClassName, false) && !interface_exists($sClassName, false)) {
+		return false;
 		throw new Exception("File '{$sFile}' was loaded but class '{$sClassName}' was not found in file");
 	}
 }
