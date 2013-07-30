@@ -165,6 +165,10 @@ class ApnsPHP_Message_Custom extends ApnsPHP_Message
 			$aPayload['aps']['alert']['launch-image'] = (string)$this->_sLaunchImage;
 		}
 
+    if (empty($aPayload['aps']['alert'])) {
+      unset($aPayload['aps']['alert']);
+    }
+
 		return $aPayload;
 	}
 }
